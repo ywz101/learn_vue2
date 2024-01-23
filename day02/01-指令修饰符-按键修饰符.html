@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="IE=edge"
+  >
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 
+    指令修饰符:
+      通过"."指明一些指令后缀, 不同后缀封装了不同的处理操作 -> 简化代码
+        (1) 按钮修饰符
+          语法: @keyup.enter = "fn" -> 表示按回车键才会执行操作
+          语法: @keyup.esc = "fn"   -> 表示按esc键才会执行操作
+          语法: @keyup.49 = "fn"    -> 表示按keyCode值为49的键才会执行操作, 这里的49表示键盘的keyCode值
+   -->
+  <div id="app">
+    <h3>键盘监听事件</h3>
+    <input
+      type="text"
+      @keyup.enter="fn"
+    />
+  </div>
+
+  <script src="./js/vue.js"></script>
+
+  <script>
+    new Vue({
+      el: '#app',
+      methods: {
+        fn() {
+          console.log('事件触发了~')
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

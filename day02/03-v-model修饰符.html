@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="IE=edge"
+  >
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <div>
+      <!-- (1) 去除首尾空格: 为什么要有这个需求? (因为用户他的输入具有不确定性) -->
+      <!-- 实现方式: 通过修饰符.trim -->
+      <!-- 为什么vue要设计出所谓的修饰符, 其实就是让我们开发效率更高(更专注于数据逻辑), 从原来DOM的操作, 转化为指令的形式 -->
+      <!-- v2: vue(version) -->
+      <!-- cn: china(中国中文) -->
+      <!-- .org(org域名: 一般指的是组织)) -->
+      <!-- guide: 文档(指导) -->
+      <!-- vue2官方文档: https://v2.cn.vuejs.org/v2/guide -->
+      用户名: <input
+        type="text"
+        v-model.trim="username"
+      />
+    </div>
+    <div>
+      <!-- (2) 纯数字输入: 为什么要有这个需求? (因为用户他的输入具有不确定性) -->
+      手机号: <input
+        type="text"
+        v-model.number="phoneNumber"
+      />
+    </div>
+    <div>
+      <!-- 前端: (前 => (靠近浏览器, 浏览器和用户最密切的关系, 前端通过浏览器这个介质与用户产生了密切的联系)) -->
+      <!-- 供大于需: 前端开发者比用户还多了, 最危机的时刻, 能力不行的就被淘汰了 -->
+      <!-- (3) 失去焦点之后才触发: 为什么有这样的需求, 因为什么时候输入结束具有不确定性, 如果说实时在数据劫持, 性能消耗太高了, 所以在用户失去焦点的时候再去触发监听就会节省性能 -->
+      <!-- lazy: vue的数据劫持先偷个懒, 等到必要条件触发时才去劫持 -->
+      <!-- 程序员的优良的品质就是懒(身体上偷懒, 思维上不懒): 自动化 -->
+      密码: <input
+        type="text"
+        v-model.lazy="password"
+      />
+    </div>
+  </div>
+
+  <!-- 内容(content)分发(distribution)网络(network) -->
+  <!-- 内容分发网络的通用场景/包管理器(npm)/使用@指定vue的版本(vue2)/供应/vue.js -->
+  <!-- npm(package manager) -->
+  <!-- yarn -->
+  <!-- pnpm: performance -->
+  <!-- 需要商业, 千万不能商业化  -->
+  <!-- CDN网络的缺陷是不够快, 可能会有点延时 -->
+  <!-- url: 为什么是绝对路径? -->
+  <!-- url: 统一资源定位器 (uniform resource lacator) -->
+
+
+  <!-- 对于bug的排查: 理想的状态, 越早发现越好 -->
+  <script src="./js/vue.js"></script>
+
+  <script>
+    if (this.account === 'admin')
+    Vue.config.productionTip = false
+
+    new Vue({
+      el: '#app',
+      data: {
+        username: '',
+        phoneNumber: '',
+        password: ''
+      }
+    })
+  </script>
+</body>
+
+</html>
