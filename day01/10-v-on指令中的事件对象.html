@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="IE=edge"
+  >
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 
+    1.如果在模板中(页面中)使用事件对象, 可以使用 $event (固定写法)
+    2.如果在JS中使用事件对象, 还是事件处理函数的形参 e
+    3.如果JS中, 即用event, 又有其他参数, 原则一个实参对应一个形参
+   -->
+
+  <div id="app">
+    <h2>需求: 输入框输入内容, 将内容显示在p标签中</h2>
+    <!-- 模板中使用$event -->
+    <!-- <input
+      type="text"
+      @input="result = $event.target.value"
+    /> -->
+
+    <!-- 方法中使用event -->
+    <!-- <input type="text" @input="handlePointerEvent" /> -->
+
+    <!-- 即有event又有其它参数 -->
+    <input
+      type="text"
+      @input="handlePointerEvent(100, 200, $event)"
+    />
+    <p>{{ result }}</p>
+  </div>
+
+  <script src="./js/vue.js"></script>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        result: ''
+      },
+      methods: {
+        handlePointerEvent(num1, num2, event) {
+          this.result = event.target.value
+          console.log(num1, num2)
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

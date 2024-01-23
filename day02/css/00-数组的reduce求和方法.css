@@ -1,0 +1,22 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+table {
+  margin: 100px auto;
+  border: 1px solid #000;
+  border-collapse: collapse;
+  width: 600px;
+}
+
+th,
+td {
+  padding: 10px 30px;
+  border: 1px solid #000;
+}
+
+tbody td {
+  text-align: center;
+}

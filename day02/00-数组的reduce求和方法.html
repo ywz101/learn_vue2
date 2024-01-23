@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="IE=edge"
+  >
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>Document</title>
+  <link
+    rel="stylesheet"
+    href="./css/00-数组的reduce求和方法.css"
+  >
+</head>
+
+<body>
+  <div id="app">
+    <table>
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>名称</th>
+          <th>数量</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          v-for="(item, index) in list"
+          :key="item.id"
+        >
+          <td>{{ index + 1 }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.num }}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3">总计: {{ totalNum() }}个</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <script src="./js/vue.js"></script>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        list: [
+          { id: 1, name: '篮球', num: 3 },
+          { id: 2, name: '足球', num: 5 },
+          { id: 3, name: '铅笔', num: 7 }
+        ]
+      },
+      methods: {
+        totalNum() {
+          const result = this.list.reduce((total, item) => total + item.num, 0)
+          return result
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

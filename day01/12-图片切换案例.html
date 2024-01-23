@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="IE=edge"
+  >
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>Document</title>
+  <style>
+    img {
+      width: 200px;
+      height: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 
+    案例分析:
+      1.准备多张图片, 用数组表示
+      2.显示图片, <img :src="imgList[index]" />
+      3.切换图片, 就是改变数组的索引(index)即可
+      4.点击按钮, 修改index, index++ index--
+      5.加入条件, 控制按钮何时显示
+   -->
+  <div id="app">
+    <div>
+      <button
+        @click="decrementIndex"
+        v-show="index > 0"
+      >上一页</button>
+    </div>
+    <img
+      :src="imgList[index]"
+      alt=""
+    >
+    <div>
+      <button
+        @click="iecrementIndex"
+        v-show="index < imgList.length - 1"
+      >下一页</button>
+    </div>
+  </div>
+
+  <script src="./js/vue.js"></script>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        index: 0,
+        imgList: [
+          './images/1.png',
+          './images/2.png',
+          './images/3.png',
+        ]
+      },
+      methods: {
+        decrementIndex() {
+          this.index--
+        },
+        iecrementIndex() {
+          this.index++
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

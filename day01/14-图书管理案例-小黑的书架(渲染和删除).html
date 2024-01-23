@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="IE=edge"
+  >
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <h3>我的书架</h3>
+    <ul>
+      <!-- item是数组中每一项 -->
+      <li v-for="(item, index) in bookList">
+        <span>{{ item.name }}</span>
+        <span>{{ item.author }}</span>
+        <button @click="deleteBookBySplice(index)">删除(splice)</button>
+        <button @click="deleteBookByFilter(item.id)">删除(filter)</button>
+      </li>
+    </ul>
+  </div>
+
+  <script src="./js/vue.js"></script>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        bookList: [
+          { id: 1, name: '《红楼梦》', author: '曹雪芹' },
+          { id: 2, name: '《西游记》', author: '吴承恩' },
+          { id: 3, name: '《水浒传》', author: '施耐庵' },
+          { id: 4, name: '《三国演义》', author: '罗贯中' },
+        ]
+      },
+      methods: {
+        deleteBookBySplice(index) {
+          this.bookList.splice(index, 1)
+        },
+        deleteBookByFilter(id) {
+          this.bookList = this.bookList.filter(item => item.id !== id)
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

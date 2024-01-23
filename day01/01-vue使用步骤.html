@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 1.准备容器 -->
+  <div id="app">
+    <h2>展示的信息: {{ msg }}</h2>
+  </div>
+
+  <!-- 2.引包: 导入vue.js -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+  <!-- 3.创建Vue实例对象 -->
+  <script>
+    new Vue({
+      el: '#app', // 要把数据展示哪个元素里
+      data: {     // data是数据的意思, 这里放要展示的数据
+        msg: 'hello, vue!'
+      }
+    })
+  </script>
+
+</body>
+
+</html>

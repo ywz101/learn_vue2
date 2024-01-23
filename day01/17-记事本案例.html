@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="IE=edge"
+  >
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>Document</title>
+  <link
+    rel="stylesheet"
+    href="./css/17-记事本案例.css"
+  >
+</head>
+
+<body>
+  <!-- 
+    功能需求:
+      1.列表渲染
+      2.删除功能
+      3.添加功能
+      4.底部统计和清空
+   -->
+
+  <div id="app">
+    <div class="container">
+      <h2>记事本</h2>
+      <div class="box">
+        <div class="input-box">
+          <input
+            type="text"
+            placeholder="请输入任务"
+            v-model="name"
+          />
+          <button @click="addEvent">添加任务</button>
+        </div>
+        <div class="content-box">
+          <ul>
+            <li
+              v-for="(item, index) in list"
+              :key="item.id"
+            >
+              <span>{{ index + 1 }}.</span>
+              <strong>{{ item.name }}</strong>
+              <i
+                class="destroy"
+                @click="deleteEvent(item.id)"
+              >x</i>
+            </li>
+          </ul>
+        </div>
+        <div class="footer-box">
+          <span>合计: {{ list.length }}</span>
+          <a
+            href="javascript:;"
+            @click="emptyEvent"
+          >清空任务</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./js/vue.js"></script>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        list: [
+          { id: 1, name: '跑步一公里' },
+          { id: 2, name: '跳绳200个' },
+          { id: 3, name: '游泳100米' },
+        ],
+        name: ''
+      },
+      methods: {
+        deleteEvent(id) {
+          this.list = this.list.filter(item => item.id !== id)
+        },
+        addEvent() {
+          this.list.unshift({
+            id: Date.now(), // 时间戳
+            name: this.name // 输入框的值
+          })
+          this.name = ''    // 清空输入框
+        },
+        emptyEvent() {
+          this.list = []
+        },
+        // 存储数据到本地
+        saveToLocal() {
+          localStorage.setItem('myList', JSON.stringify(this.list))
+        },
+        // 从本地存储加载数据
+        loadFromLocal() {
+          // 兜底
+          this.list = JSON.parse(localStorage.getItem('myList')) || []
+        }
+      },
+      // 生命周期函数created
+      created() {
+        // 一般发起ajax请求的, 在此处也可以理解为页面一加载就从本地存储里面自动的加载数据
+        this.loadFromLocal()
+      },
+      // watch监听(行车记录仪, 更关注视觉) listener: 侦听(黑客, 更注重(听觉)对话内容)
+      // watch完整写法
+      watch: {
+        // 监听的数据源
+        list: {
+          // handler函数
+          handler() {
+            // 调用一下存储到本地的方法, 目的是让我们的本地存储的数据, 是实时更新的
+            this.saveToLocal()
+          }
+        },
+        // 开启深度监听
+        deep: true
+      }
+    })
+  </script>
+
+  <script>
+    if ([]) {
+      console.log('ok')
+    }
+  </script>
+</body>
+
+</html>

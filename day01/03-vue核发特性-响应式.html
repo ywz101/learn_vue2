@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="IE=edge"
+  >
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 
+    总结:
+      1.什么是响应式呢?
+        数据的响应式处理 -> 响应式: (数据变化, 视图自动更新)
+        使用 vue 开发 -> 专注于业务核心逻辑即可
+      2.如何访问或修改数据呢?
+        data中的数据, 最终会被添加到实例上
+        (1) 访问数据: 实例.属性名
+        (2) 修改数据: 实例.属性名 = 值
+   -->
+
+  <div id="app">
+    <h2>message: {{ msg }}</h2>
+  </div>
+
+  <script src="./js/vue.js"></script>
+
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        msg: 'hello vue3'
+      }
+    })
+
+  </script>
+</body>
+
+</html>

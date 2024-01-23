@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="IE=edge"
+  >
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 
+    vue指令:
+      vue会根据不同的"指令", 针对标签实现不同的"功能"
+      指令: 带有v-前缀的特殊标签属性
+      语法格式: <p v-html="str"></p>
+      作用: 设置元素的innerHTML
+
+
+      总结:
+        1.什么是vue的指令呢?
+          指令就是带有"v-前缀"的特殊"属性", 不同的属性"对应"不同的功能
+          学习不同指令 -> 解决不同业务场景需求
+        2.如果需要动态解析标签, 可以用哪个指令? 语法?
+          v-html = "表达式" -> 动态设置元素 innerHTML
+   -->
+
+  <div id="app">
+    <p v-html="str"></p>
+  </div>
+
+  <script src="./js/vue.js"></script>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        str: '你是一个<b style="color: red;">优秀</b>的body'
+      }
+    })
+  </script>
+</body>
+
+</html>

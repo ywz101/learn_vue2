@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="IE=edge"
+  >
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/09-v-on调用传参.css">
+</head>
+
+<body>
+  <div id="app">
+    <div class="box">
+      <h3>小黑自动售货机</h3>
+      <button @click="expense(5)">可乐5元</button>
+      <button @click="expense(10)">咖啡10元</button>
+      <button @click="expense(8)">牛奶8元</button>
+    </div>
+    <p>银行卡余额: {{ balance }} 元</p>
+  </div>
+
+  <script src="./js/vue.js"></script>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        balance: 100
+      },
+      methods: {
+        expense(num) {
+          this.balance -= num
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

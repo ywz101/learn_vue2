@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="IE=edge"
+  >
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 
+    v-bind设置动态属性
+      1.作用: 动态的设置html的标签属性 -> src、url、title 等
+      2.语法: v-bind:属性名 = "表达式或者变量"
+      3.简写: v-bind:可以简写成:
+   -->
+
+  <div id="app">
+    <!-- <img v-bind:src="url" alt="" v-bind:title="title"> -->
+    <img :src="url" :alt="title" :title="title">
+  </div>
+
+  <script src="./js/vue.js"></script>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fcbu01.alicdn.com%2Fimg%2Fibank%2F2019%2F374%2F541%2F12352145473_414294612.jpg&refer=http%3A%2F%2Fcbu01.alicdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708332283&t=63222370d054e62431b664d43921a5fe',
+        title: '水浒传'
+      }
+    })
+  </script>
+</body>
+
+</html>

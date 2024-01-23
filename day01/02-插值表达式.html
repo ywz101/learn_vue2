@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 插值表达式支持解析响应式数据 -->
+    <h2>姓名: {{ uname }}</h2>
+    <!-- 插值表达式支持调用方法 -->
+    <h2>大写姓名: {{ uname.toUpperCase() }}</h2>
+    <h2>年龄: {{ age }}</h2>
+    <!-- 插值表达式支持三元运算符 -->
+    <h2>是否为成年人: {{ age >= 18 ? '成年人' : '未成年人' }}</h2>
+    <!-- 插值表达式可以解析对象中的属性 -->
+    <h2>朋友性别: {{ friend.gender }}</h2>
+    <h2>朋友姓名: {{ friend.name }}</h2>
+    <h2>朋友年龄: {{ friend.age }}</h2>
+
+    <!-- 
+      注意: 
+        1.数据必须存在才能被解析
+          <h2>abc: {{ abc }}</h2> 
+        2.支持的是表达式, 而非语句, 比如if、for
+          <h2>{{ if }}</h2> 
+          <h2>{{ for }}</h2>
+        3.不能在标签属性中使用插值表达式 
+          <h2 title="{{ uname }}">测试</h2> -->
+
+    <!-- 
+      总结:
+        1.插值表达式的作用是什么?
+          利用表达式进行插值, 将数据渲染到页面中
+        2.语法格式
+          {{ 表达式 }}
+        3.插值表达式的注意点
+          (1) 使用的数据要存在 (data)
+          (2) 支持的是表达式, 而非语句, 如if、for
+          (3) 不能在标签属性里面使用
+    -->
+  </div>
+
+  <script src="./js/vue.js"></script>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        uname: 'ZhangSan',
+        age: 30,
+        friend: {
+          gender: 'male',
+          name: 'WangWu',
+          age: 33
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
