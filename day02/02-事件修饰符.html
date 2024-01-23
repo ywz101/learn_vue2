@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="IE=edge"
+  >
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>Document</title>
+  <style>
+    /* 
+      实体化三要素: 宽、高、背景色（边框线）
+    */
+    .father {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 200px;
+      height: 200px;
+      background-color: red;
+    }
+
+    .father .son {
+      width: 100px;
+      height: 100px;
+      background-color: pink;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <h3>原生JS: stopPropagation()</h3>
+    <h3>事件修饰符.stop: 阻止冒泡行为</h3>
+    <!-- 穷骨头: 一些偏财也拒绝(野性、匪气) -->
+    <a
+      href="https://www.baidu.com"
+      @click.prevent
+    >百度一下</a>
+    <div
+      class="father"
+      @click="fn1"
+    >
+      <div
+        class="son"
+        @click.stop="fn1"
+      >son</div>
+    </div>
+  </div>
+
+  <script src="./js/vue.js"></script>
+
+  <script>
+    new Vue({
+      el: '#app',
+      methods: {
+        fn1() {
+          console.log('stop')
+        },
+        fn2() {
+
+        },
+        fn3() {
+
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
