@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="IE=edge"
+  >
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/04-v-bind控制class类名.css">
+</head>
+
+<body>
+  <div id="app">
+    <!-- (1) 对象语法: 开发中常用 -->
+    <div class="box1" v-bind:class="{ big: 2 < 1, pink: flag }">我是box1</div>
+    <!-- (2) 数组语法: 用的不多 -->
+    <div class="box2" v-bind:class="[ flag ? 'big' : '',  flag ? 'pink' : '' ]">我是box2</div>
+  </div>
+
+  <script src="./js/vue.js"></script>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        flag: true
+      }
+    })
+  </script>
+</body>
+
+</html>

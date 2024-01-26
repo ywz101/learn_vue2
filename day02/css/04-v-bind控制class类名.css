@@ -1,0 +1,16 @@
+.box1,
+.box2 {
+  margin-top: 100px;
+  width: 200px;
+  height: 200px;
+  border: 1px solid #000;
+}
+
+.big {
+  width: 400px;
+  height: 400px;
+}
+
+.pink {
+  background-color: pink;
+}
