@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="IE=edge"
+  >
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/06-进度条案例.css">
+</head>
+
+<body>
+  <div id="app">
+    <div class="container">
+      <div class="progress">
+        <div class="black">
+          <div class="skyblue" :style="{ width: percent + '%' }">
+            {{ percent }} %
+          </div>
+        </div>
+      </div>
+      <div class="btns">
+        <button @click="setProgressPercent(25)">设置25%</button>
+        <button @click="setProgressPercent(50)">设置50%</button>
+        <button @click="setProgressPercent(75)">设置75%</button>
+        <button @click="setProgressPercent(100)">设置100%</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./js/vue.js"></script>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        percent: 25
+      },
+      methods: {
+        setProgressPercent(num) {
+          this.percent = num
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
