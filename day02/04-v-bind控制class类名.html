@@ -18,7 +18,7 @@
 <body>
   <div id="app">
     <!-- (1) 对象语法: 开发中常用 -->
-    <div class="box1" v-bind:class="{ big: 2 < 1, pink: flag }">我是box1</div>
+    <div class="box1" :class="{ big: 2 < 1, pink: flag }">我是box1</div>
     <!-- (2) 数组语法: 用的不多 -->
     <div class="box2" v-bind:class="[ flag ? 'big' : '',  flag ? 'pink' : '' ]">我是box2</div>
   </div>

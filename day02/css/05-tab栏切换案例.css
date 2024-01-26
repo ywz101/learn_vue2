@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+li {
+  list-style: none;
+  padding: 10px 20px;
+  font-weight: 700;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.list {
+  display: flex;
+  border-bottom: 3px solid #e1251b;
+}
+
+.active {
+  background-color: #e1251b;
+  color: #fff;
+}

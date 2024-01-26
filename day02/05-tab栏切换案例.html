@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="IE=edge"
+  >
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>Document</title>
+  <link
+    rel="stylesheet"
+    href="./css/05-tab栏切换案例.css"
+  >
+</head>
+
+<body>
+  <div id="app">
+    <ul class="list">
+      <li
+        v-for="(item, index) in list"
+        :key="item.id"
+        :class="{ active: index === currentIndex }"
+        @click="handleListItem(index)"
+      >
+        {{ item.name }}
+    </li>
+    </ul>
+  </div>
+
+  <script src="./js/vue.js"></script>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        currentIndex: 0,
+        list: [
+          { id: 1, name: '京东秒杀' },
+          { id: 2, name: '每日特价' },
+          { id: 3, name: '品类秒杀' },
+        ]
+      },
+      methods: {
+        handleListItem(index) {
+          this.currentIndex = index
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
