@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="IE=edge"
+  >
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>Document</title>
+  <link
+    rel="stylesheet"
+    href="./css/08-计算属性-礼物清单数量统计案例.css"
+  >
+</head>
+
+<body>
+  <div id="app">
+    <div class="container">
+      <h2>小黑的礼物清单</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>名字</th>
+            <th>数量</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="item in list"
+            :key="item.id"
+          >
+            <td>{{ item.name }}</td>
+            <td>{{ item.num }}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2">礼物总数: {{ total }}个</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <script src="./js/vue.js"></script>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        list: [
+          { id: 1, name: '篮球', num: 5 },
+          { id: 2, name: '玩具', num: 2 },
+          { id: 3, name: '铅笔', num: 5 }
+        ]
+      },
+      computed: {
+        // 计算属性必须有返回值
+        // 方式一: forEach, 写起来麻烦点, 更容易理解
+        // if...else(写起来麻烦点, 更容易理解) (三元运算符这种写法会少)
+        // total() {
+        //   // 初始值
+        //   let sum = 0
+        //   this.list.forEach(item => {
+        //     sum += item.num
+        //   })
+        //   return sum
+        // }
+
+        // 方式二: reduce(高阶函数用法, 写起来方便)
+        total() {
+          return this.list.reduce((preVal, item) => preVal + item.num, 0)
+        }
+      }
+    })
+  </script>
+</html>

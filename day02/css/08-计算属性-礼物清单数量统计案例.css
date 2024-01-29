@@ -1,0 +1,27 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  margin: 100px auto;
+  width: 600px;
+}
+.container h2 {
+  padding-bottom: 20px;
+}
+.container table {
+  border: 1px solid #000;
+  border-collapse: collapse;
+}
+.container table th,
+td {
+  padding: 4px 80px;
+  border: 1px solid #000;
+}
+
+.container tfoot tr td {
+  padding-left: 0;
+  text-align-last: left;
+}
