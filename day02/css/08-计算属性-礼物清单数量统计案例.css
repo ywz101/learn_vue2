@@ -9,7 +9,19 @@
   width: 600px;
 }
 .container h2 {
+  position: relative;
+  display: inline-block;
   padding-bottom: 20px;
+}
+.container h2 span {
+  position: absolute;
+  top: -7px;
+  right: -24px;
+  padding: 4px 8px;
+  border-radius: 50%;
+  background-color: #e1251b;
+  color: #fff;
+  font-size: 14px;
 }
 .container table {
   border: 1px solid #000;
@@ -24,4 +36,9 @@ td {
 .container tfoot tr td {
   padding-left: 0;
   text-align-last: left;
+}
+
+.container h2 i {
+  color: #ccc;
+  font-size: 20px;
 }

@@ -16,19 +16,16 @@
     rel="stylesheet"
     href="./css/08-计算属性-礼物清单数量统计案例.css"
   >
-  <link
-    rel="stylesheet"
-    href="./font/iconfont.css"
-  >
+  <link rel="stylesheet" href="./font/iconfont.css">
 </head>
 
 <body>
   <div id="app">
     <div class="container">
       <h2>
-        小黑的礼物清单
+        小黑的礼物清单 
         <i class="iconfont icon-shopping-cart"></i>
-        <span>{{ total }}</span>
+        <span>{{ test() }}</span>
       </h2>
       <table>
         <thead>
@@ -48,7 +45,7 @@
         </tbody>
         <tfoot>
           <tr>
-            <td colspan="2">礼物总数: {{ total }}个</td>
+            <td colspan="2">礼物总数: {{ test() }}个</td>
           </tr>
         </tfoot>
       </table>
@@ -67,6 +64,12 @@
           { id: 3, name: '铅笔', num: 5 }
         ]
       },
+      methods: {
+        test() {
+          console.log('方法被调用了~')
+          return this.list.reduce((preVal, item) => preVal + item.num, 0)
+        }
+      },
       computed: {
         // 计算属性必须有返回值
         // 方式一: forEach, 写起来麻烦点, 更容易理解
@@ -82,10 +85,10 @@
 
         // 方式二: reduce(高阶函数用法, 写起来方便)
         total() {
+          console.log('计算属性被调用了~')
           return this.list.reduce((preVal, item) => preVal + item.num, 0)
         }
       }
     })
   </script>
-
 </html>
