@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="IE=edge"
+  >
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>Document</title>
+  <link
+    rel="stylesheet"
+    href="./css/11-学生成绩表案例.css"
+  >
+</head>
+
+<body>
+  <div id="app">
+    <div class="container">
+      <table>
+        <thead>
+          <tr>
+            <th>编号</th>
+            <th>科目</th>
+            <th>成绩</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody v-if="list.length !== 0">
+          <tr
+            v-for="(item, index) in list"
+            :key="item.id"
+          >
+            <td>{{ index + 1 }}</td>
+            <td>{{ item.subject }}</td>
+            <td :class="{ red: item.score < 60 }">{{ item.score }}</td>
+            <td><a
+                href="javascript:;"
+                @click="deleteSubjectOfFilter(item.id)"
+              >删除</a></td>
+          </tr>
+        </tbody>
+        <tbody v-else>
+          <tr>
+            <td colspan="4">暂无数据</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <td colspan="4">
+            <span style="padding-right: 60px;">总分: {{ total }}</span>
+            <span>平均分: {{ average }}</span>
+          </td>
+        </tfoot>
+      </table>
+
+      <div class="add-content-box">
+        <div class="subject">
+          科目: <input
+            type="text"
+            placeholder="请输入科目"
+            v-model.trim="addSubject"
+          />
+        </div>
+        <div class="score">
+          分数: <input
+            type="text"
+            placeholder="请输入分数"
+            v-model.trim.number="addScore"
+          />
+        </div>
+        <div>
+          <button @click="add">添加</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./js/vue.js"></script>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        list: [
+          { id: 1, subject: '语文', score: 46 },
+          { id: 2, subject: '英语', score: 80 },
+          { id: 3, subject: '数学', score: 100 },
+        ],
+        addSubject: '',
+        addScore: ''
+      },
+      computed: {
+        // 注意事项: 要有返回值return
+        total() {
+          return this.list.reduce((preValue, item) => preValue + item.score, 0)
+        },
+        average() {
+          const result = parseInt(this.total / this.list.length)
+          if (isNaN(result)) {
+            return 0
+          }
+          return result
+        }
+      },
+      methods: {
+        // 删除元素我们用两种常用的方式: splice(修改原数组), 通过index来删除
+        // delelteSubjectOfSplice(index) {
+        //   this.list.splice(index, 1)
+        // },
+        // 使用filter来删除元素: filter(不修改原数组, 会有返回值), 通过id来删除
+        deleteSubjectOfFilter(id) {
+          this.list = this.list.filter(item => item.id !== id)
+        },
+        add() {
+          this.list.push({ id: +new Date(), subject: this.addSubject, score: this.addScore })
+          this.addSubject = ''
+          this.addScore = ''
+        },
+        saveDataToLocal() {
+          localStorage.setItem('my-list', JSON.stringify(this.list))
+        },
+        loadDataFromLocal() {
+          this.list = JSON.parse(localStorage.getItem('my-list')) || []
+        },
+      },
+      created() {
+        this.loadDataFromLocal()
+      },
+      // 最早期的华夏文明其实是无神论(商 => 天命玄鸟, 降而生商)
+      mounted() {
+        // 注意: 需要写成箭头函数, 实现一个特点, 不绑定当前域的this
+        document.addEventListener('keyup', (event) => {
+          if (event.key === 'Enter') {
+            this.add()
+          }
+        })
+      },
+      // watch监听完整写法
+      watch: {
+        list: {
+          handler(val) {
+            this.saveDataToLocal(val)
+          },
+          // 开启深度监听
+          deep: true
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
