@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="IE=edge"
+  >
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <div>
+      姓: <input type="text" v-model="firstName" />
+    </div>
+    <div>
+      名: <input type="text" v-model="lastName" />
+    </div>
+    <div>
+      姓名: <input type="text" v-model.lazy="fullName" />
+    </div>
+  </div>
+
+  <script src="./js/vue.js"></script>
+
+  <script>
+    // 关闭生产环境的提示
+    Vue.config.productionTip = false
+
+    new Vue({
+      el: '#app',
+      data: {
+        // 姓
+        firstName: '张',
+        // 名
+        lastName: '三'
+      },
+      computed: {
+        // 注意: 普通写法计算属性不能修改
+        // (1) 普通写法, 只有getter, 没有setter 
+        // fullName() {
+        //     return this.firstName + '*' + this.lastName
+        // }
+
+        // (2) 完整写法
+        fullName: {
+          get() {
+            return this.firstName + '*' + this.lastName
+          },
+          /* 
+            value指的是什么?
+            答: value指的是get的结果值
+          */
+          set(value) { 
+            console.log(value)
+            const array = value.split('*')
+            console.log(array) // ['李', '四']
+            // 分配相应的值
+            this.firstName = array[0]
+            this.lastName = array[1]
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
