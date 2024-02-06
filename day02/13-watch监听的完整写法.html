@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="IE=edge"
+  >
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>Document</title>
+  <link
+    rel="stylesheet"
+    href="./font2/iconfont.css"
+  >
+  <link
+    rel="stylesheet"
+    href="./css/12-watch监听器的案例.css"
+  >
+</head>
+
+<body>
+  <div id="app">
+    <div class="container">
+      <div class="top">
+        <div class="from">
+          源语言:
+          <select v-model="obj.from">
+            <option value="en">英语</option>
+            <option value="zh">中文</option>
+            <option value="jp">日文</option>
+          </select>
+        </div>
+        <div class="to">
+          目标语言:
+          <select v-model="obj.to">
+            <option value="zh">中文</option>
+            <option value="en">英语</option>
+            <option value="jp">日文</option>
+          </select>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="left">
+          <textarea v-model="obj.q"></textarea>
+          <div class="keyboard">
+            <i class="iconfont icon-keybroad"></i>
+            文档翻译
+          </div>
+        </div>
+        <div class="right">
+          <textarea>{{ result }}</textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./js/vue.js"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.7/axios.min.js"
+    integrity="sha512-NQfB/bDaB8kaSXF8E77JjhHG5PM6XVRxvHzkZiwl3ddWCEPBa23T76MuWSwAJdMGJnmQqM0VeY9kFszsrBEFrQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        obj: {
+          q: '',      // query: 需要被翻译的单词 
+          from: 'en', // 源语言(需要被翻译的语言)
+          to: 'zh',   // 目标语言(翻译之后的语言)
+        },
+        result: '',
+      },
+      watch: {
+        // 完整写法
+        // 监视的目标
+        obj: {
+          // 固有的函数: handler
+          handler(newVal) {
+            // 开启定时器之前清除
+            clearTimeout(this.timer)
+            this.timer = setTimeout(async () => {
+              const { data: res } = await axios({
+                url: 'https://applet-base-api-t.itheima.net/api/translate',
+                params: newVal
+              })
+              this.result = res.data
+            }, 1000)
+          },
+          // 开启深度监视
+          deep: true
+        }
+      }
+    })
+
+    /* 
+      案例学习总结:
+        1.在学习watch侦听(监视)器的完整写法
+        2.在学习axios网络请求交互
+        3.在不影响用户体验的情况优化了性能, 利用了setTimeout和clearTimeout
+
+      案例注意事项:
+        1.在vue2中所有响应式的数据, 在函数中使用都需要加上this
+        2.此案例中, 如果写在优雅的方式, 可以不在data中写timer, 因为data中的数据最好只有和视图有互动
+    */
+  </script>
+</body>
+
+</html>

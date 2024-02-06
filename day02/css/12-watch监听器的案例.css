@@ -1,0 +1,45 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  margin: 100px auto;
+  width: 800px;
+}
+
+.container .top {
+  display: flex;
+  height: 30px;
+}
+.container .top .from {
+  margin-right: 30px;
+}
+.container .bottom {
+  display: flex;
+}
+.container .bottom textarea {
+  resize: none;
+  outline: none;
+  padding: 1em;
+  border: 1px solid #ccc;
+  width: 400px;
+  height: 200px;
+}
+.container .bottom .left {
+  position: relative;
+}
+.container .bottom .left .keyboard {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+.container .bottom .left .keyboard i {
+  font-size: 30px;
+  color: purple;
+  vertical-align: -6px;
+}
+.container .bottom .right textarea {
+  background-color: #ecefeb;
+}
