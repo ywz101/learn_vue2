@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="IE=edge"
+  >
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>Document</title>
+  <link
+    rel="stylesheet"
+    href="./font2/iconfont.css"
+  >
+  <link
+    rel="stylesheet"
+    href="./css/01-购物车案例的结构和样式.css"
+  >
+</head>
+
+<body>
+  <div id="app">
+    <div class="container">
+      <div class="top"><i class="iconfont icon-house"></i> / 购物车</div>
+      <div class="center">
+        <table>
+          <thead>
+            <tr>
+              <td>选中</td>
+              <td>图片</td>
+              <td>单价</td>
+              <td>个数</td>
+              <td>小计</td>
+              <td>操作</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <input type="checkbox">
+              </td>
+              <td>
+                <img
+                  src="./images/img1.png"
+                  alt=""
+                >
+              </td>
+              <td>
+                <span>6</span>
+              </td>
+              <td class="btn-td">
+                <button>-</button>
+                <span class="num">2</span>
+                <button>+</button>
+              </td>
+              <td>
+                <span>12</span>
+              </td>
+              <td>
+                <button class="delete-btn">删除</button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="checkbox">
+              </td>
+              <td>
+                <img
+                  src="./images/img2.png"
+                  alt=""
+                >
+              </td>
+              <td>
+                <span>7</span>
+              </td>
+              <td class="btn-td">
+                <button>-</button>
+                <span class="num">1</span>
+                <button>+</button>
+              </td>
+              <td>
+                <span>14</span>
+              </td>
+              <td>
+                <button class="delete-btn">删除</button>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td>
+                <input type="checkbox">
+                <span>全选</span>
+              </td>
+
+              <td colspan="6">
+                <span>总价: ￥</span>
+                <span class="total">24</span>
+                <button class="close-an-account">结算(6)</button>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div class="bottom">
+        <i class="iconfont icon-shoppingcart
+        "></i>
+        <span>空空如也</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="./js/vue.js"></script>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+
+      }
+    })
+  </script>
+</body>
+
+</html>

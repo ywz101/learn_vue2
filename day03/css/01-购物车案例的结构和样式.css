@@ -1,0 +1,111 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+i {
+  color: red;
+}
+
+button {
+  cursor: pointer;
+}
+
+.container {
+  margin: 100px auto;
+  width: 800px;
+}
+
+.container .top {
+  padding-bottom: 10px;
+}
+
+table {
+  border: 1px solid #dddddd;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table thead {
+  border-bottom: 1px solid #ddd;
+}
+
+table tbody tr {
+  border-bottom: 1px solid #ddd;
+  height: 158px;
+}
+
+th,
+td {
+  padding: 10px 30px;
+}
+
+table tfoot tr {
+  position: relative; 
+  height: 60px;
+}
+
+table tfoot tr td:nth-of-type(2) {
+  position: absolute;
+  right: 0;
+}
+
+table tbody tr td button {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+
+.btn-td {
+  display: flex;
+  height: 158px;
+  align-items: center;
+}
+
+table tbody tr td .num {
+  display: inline-block;
+  text-align: center;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border: 1px solid #ddd;
+}
+
+.delete-btn {
+  width: 70px;
+  color: #fff;
+  background-color: #c52539;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.total {
+  color: #da5aa6;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.close-an-account {
+  padding: 8px 16px;
+  background-color: #4384e0;
+  color: #fff;
+  border: none;
+}
+
+.bottom {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  border: 1px solid #ddd;
+  font-size: 30px;
+  color: #ccc;
+}
+
+.bottom i {
+  color: #ccc;
+  font-size: 30px;
+}
