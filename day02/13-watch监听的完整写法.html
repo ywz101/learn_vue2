@@ -76,13 +76,18 @@
           to: 'zh',   // 目标语言(翻译之后的语言)
         },
         result: '',
-      },
+      }, 
       watch: {
         // 完整写法
         // 监视的目标
         obj: {
           // 固有的函数: handler
           handler(newVal) {
+            // 做一下优化, 如果左边的文本域中没有输入内容, 就不去呈现翻译后的结果
+            if (newVal.q === '') {
+              this.result = ''
+              return
+            }
             // 开启定时器之前清除
             clearTimeout(this.timer)
             this.timer = setTimeout(async () => {
@@ -94,7 +99,9 @@
             }, 1000)
           },
           // 开启深度监视
-          deep: true
+          deep: true,
+          // 开启立即侦听
+          immediate: true
         }
       }
     })
