@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="IE=edge"
+  >
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>购物车案例</title>
+  <link rel="stylesheet" href="./css/01-购物车案例的结构和样式.css">
+</head>
+
+<body>
+  <!-- 1.定义容器 -->
+  <div id="app">
+    <div class="container">
+      <div class="top">🏠 / 购物车</div>
+      <div
+        class="table"
+        v-if="fruitList.length !== 0"
+      >
+        <div class="thead">
+          <div class="tr">
+            <div class="th">选中</div>
+            <div class="th">图片</div>
+            <div class="th">单价</div>
+            <div class="th">个数</div>
+            <div class="th">小计</div>
+            <div class="th">操作</div>
+          </div>
+        </div>
+        <div class="tbody">
+          <div
+            class="tr"
+            v-for="(item, index) in fruitList"
+            :key="item.id"
+            :class="{ active: item.isChecked }"
+          >
+            <div class="td">
+              <input
+                type="checkbox"
+                v-model="item.isChecked"
+              >
+            </div>
+            <div class="td">
+              <img
+                :src="item.icon"
+                alt=""
+              >
+            </div>
+            <div class="td">
+              <span>{{ item.price }}</span>
+            </div>
+            <div class="td">
+              <button
+                @click="item.num--"
+                :disabled="item.num <= 1"
+              >-</button>
+              <span>{{ item.num }}</span>
+              <button @click="item.num++">+</button>
+            </div>
+            <div class="td">
+              <span>{{ item.price * item.num }}</span>
+            </div>
+            <div class="td">
+              <button @click="del(index)">删除</button>
+            </div>
+          </div>
+        </div>
+        <div class="tfoot">
+          <div class="tr">
+            <div class="td">
+              <label>
+                <input
+                  type="checkbox"
+                  v-model="checkedAll"
+                >
+                <span>全选</span>
+              </label>
+            </div>
+            <div class="td">
+              <span>总价: ￥</span>
+              <span>{{ totalPrice }}</span>
+            </div>
+            <div class="td">
+              <button>结算（{{ totalCount }}）</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 没有商品的时候显示 -->
+      <div
+        class="empty"
+        v-else
+      >🛒空空如也</div>
+    </div>
+  </div>
+
+  <!-- 2.引入vue.js -->
+  <script src="./js/vue.js"></script>
+
+  <!-- 3.实例化vue -->
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        fruitList: [
+          {
+            id: 1,
+            icon: 'images/火龙果.png',
+            isChecked: true,
+            num: 2,
+            price: 6,
+          },
+          {
+            id: 2,
+            icon: '/images/荔枝.png',
+            isChecked: false,
+            num: 7,
+            price: 20,
+          },
+          {
+            id: 3,
+            icon: '/images/榴莲.png',
+            isChecked: false,
+            num: 3,
+            price: 40,
+          },
+          {
+            id: 4,
+            icon: '/images/鸭梨.png',
+            isChecked: true,
+            num: 10,
+            price: 3,
+          },
+          {
+            id: 5,
+            icon: '/images/樱桃.png',
+            isChecked: false,
+            num: 20,
+            price: 34,
+          },
+        ]
+      },
+      methods: {
+        del(index) {
+          this.fruitList.splice(index, 1)
+        }
+      },
+      computed: {
+        totalPrice() {
+          return this.fruitList.reduce((init, item) => {
+            if (item.isChecked) {
+              return init + item.price * item.num
+            } else {
+              return init
+            }
+          }, 0)
+        },
+        totalCount() {
+          return this.fruitList.reduce((init, item) => {
+            if (item.isChecked) {
+              return init + item.num
+            } else {
+              return init
+            }
+          }, 0)
+        },
+        // 完整写法
+        checkedAll: {
+          get() {
+            return this.fruitList.every(item => item.isChecked)
+          },
+          // item.isChecked表示每一个单独商品的选中状态
+          // val表示全选按钮的状态, 选中是true, 没有选中是false
+          set(val) {
+            return this.fruitList.forEach(item => item.isChecked = val)
+          }
+        }
+      },
+      watch: {
+        // 完整写法
+        fruitList: {
+          handler(val) {
+            // val: 侦听后的结果(依赖项发生改变后的值)
+            // 需要将最新的侦听到的结果存储到本地存储里面, 来实现数据的持久化存储
+            localStorage.setItem('list', JSON.stringify(val))
+          },
+          deep: true, // 开启深度侦听
+        }
+      },
+      created() {
+        // 读取本地的数据, 读取到的数据重新赋值给响应式数据fruitList(数据驱动视图)
+        this.fruitList = JSON.parse(localStorage.getItem('list')) || this.fruitList
+      }
+    })
+  </script>
+</body>
+
+</html>
