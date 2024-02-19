@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="IE=edge"
+  >
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>03-created应用-新闻列表</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    li {
+      list-style: none;
+    }
+
+    .news {
+      display: flex;
+      margin: 40px auto;
+      width: 600px;
+      height: 120px;
+    }
+
+    .news .left {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+      padding-right: 10px;
+    }
+
+    .news .left .title {
+      font-size: 20px;
+    }
+
+    .news .left .info {
+      color: #999;
+    }
+
+    .news .left .info span {
+      margin-right: 20px;
+    }
+
+    .news .right {
+      width: 160px;
+      height: 120px;
+    }
+
+    .news .right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <ul>
+      <li
+        class="news"
+        v-for="(item, index) in newsList"
+        :key="item.id"
+      >
+        <div class="left">
+          <div class="title">{{ item.title }}</div>
+          <div class="info">
+            <span>{{ item.time }}</span>
+            <span>{{ item.source }}</span>
+          </div>
+        </div>
+          <img
+            :src="item.img"
+            alt=""
+          >
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <script src="./js/vue.js"></script>
+  <script src="./js/axios.js"></script>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        newsList: []
+      },
+      // 创建阶段发起ajax请求的
+      async created() {
+        // 1.发起ajax请求, 获取数据
+        const { data: res } = await axios.get('http://hmajax.itheima.net/api/news')
+        // 2.将获取到的数据更新到响应式数据newsList中
+        this.newsList = res.data
+      }
+    })
+  </script>
+</body>
+
+</html>

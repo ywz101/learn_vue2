@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="IE=edge"
+  >
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <h2>{{ title }}</h2>
+    <button @click="count--">-</button>
+    <span>{{ count }}</span>
+    <button @click="count++">+</button>
+  </div>
+
+  <script src="./js/vue.js"></script>
+
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        title: '我是标题',
+        count: 100
+      },
+      // (1) 创建阶段
+      beforeCreate() {
+        // 是data中响应式数据还没有准备好
+        console.log(this.title) // undefined
+      },
+      created() {
+        // data中响应式数据还已经准备好了(发起ajax请求, 获取数据)
+        console.log(this.title) // '我是标题'
+      },
+      // (2) 挂载阶段
+      beforeMount() {
+        // 数据渲染到页面之前
+        console.log(document.querySelector('h2')) // <h2>{{ title }}</h2>
+      },
+      mounted() {
+        // 数据已经渲染到页面了
+        console.log(document.querySelector('h2')) // <h2>我是标题</h2>
+      },
+      // (3) 更新阶段
+      beforeUpdate() {
+        // data中的count数据更新了, 但是渲染没有更新
+        // data数据更新吗? 答案: 更新的
+        console.log('beforeUpdate', this.count, document.querySelector('span').textContent) // 100
+        // 101 100
+      },
+      updated() {
+        // data中的count数据更新了, 但是渲染也更新了
+        console.log('beforeUpdate', this.count, document.querySelector('span').textContent) // 101 101
+      },
+      // (4) 销毁阶段
+      beforeDestroy() {
+        console.log('销毁之前')
+      },
+      destroyed() {
+        console.log('销毁后')
+      }
+    })
+  </script>
+</body>
+
+</html>
