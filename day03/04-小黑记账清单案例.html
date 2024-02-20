@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="IE=edge"
+  >
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>Document</title>
+  <!-- (4) bootstrap来布局样式 -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css"
+  >
+  <style>
+    .wrapper {
+      display: flex;
+      padding: 10px;
+    }
+
+    /* 左侧列表 */
+    .list-box {
+      flex: 1;
+      padding: 30px;
+    }
+
+    .list-box a {
+      text-decoration: none;
+    }
+
+    .my-form {
+      display: flex;
+      margin: 20px 0;
+    }
+
+    .my-form input {
+      flex: 1;
+      margin-right: 20px;
+    }
+
+    tfoot {
+      font-weight: 700;
+    }
+
+    .red {
+      color: red !important;
+    }
+
+    /* 右侧图表 */
+    .echarts-box {
+      margin: 0 auto;
+      padding: 30px;
+      width: 600px;
+      height: 400px;
+      border: 1px solid #ccc;
+    }
+
+    /* 媒体查询 */
+    @media screen and (max-width: 1000px) {
+      .wrapper {
+        flex-wrap: wrap;
+      }
+
+      .echarts-box {
+        margin-top: 30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div class="wrapper">
+      <!-- 左侧列表 -->
+      <div class="list-box">
+        <form class="my-form">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="消费名称"
+            v-model="form.name"
+          />
+          <input
+            type="text"
+            class="form-control"
+            placeholder="消费价格"
+            v-model="form.price"
+          />
+          <button
+            type="button"
+            class="btn btn-primary"
+            @click="add"
+          >添加账单</button>
+        </form>
+        <!-- 表格 -->
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>编号</th>
+              <th>消费名称</th>
+              <th>消费价格</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="(item, index) in list"
+              :key="item.id"
+            >
+              <td>{{ index + 1 }}</td>
+              <td>{{ item.name }}</td>
+              <td :class="{ red: item.price > 9000 }">{{ item.price.toFixed(2) }}</td>
+              <td>
+                <a
+                  href="javascript:;"
+                  @click="del(item.id)"
+                >删除</a>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="4">消费总计: {{ totalPrice.toFixed(2) }}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <!-- 右侧图表 -->
+      <div
+        class="echarts-box"
+        id="main"
+      ></div>
+    </div>
+  </div>
+
+  <!-- (1) 引入vue2 -->
+  <script src="./js/vue.js"></script>
+  <!-- (2) 网络请求工具 axios -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <!-- (3) echarts图表 -->
+  <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+  <script src="./js/creator.js"></script>
+
+  <!-- 
+    为什么我记东西快?
+      心无杂念: (1)不打游戏 (2)不谈恋爱 (3)早就有规划了不焦虑 (4)认命了
+  -->
+
+  <!-- 案例接口: https://apifox.com/apidoc/shared-24459455-ebb1-4fdc-8df8-0aff8dc317a8/api-53371058 -->
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        list: [],
+        form: {
+          creator: creator,
+          name: '',
+          price: ''
+        }
+      },
+      created() {
+        this.getList()
+      },
+      methods: {
+        // 获取数据
+        async getList() {
+          const { data: res } = await axios({
+            url: 'https://applet-base-api-t.itheima.net/bill',
+            params: {
+              creator: creator
+            }
+          })
+          // 将获取到的数据更新到data中的list中
+          this.list = res.data
+          // 更新图表
+          this.myChart.setOption({
+            series: [
+              {
+                data: this.list.map(item => ({ value: item.price, name: item.name }))
+              }
+            ]
+          })
+        },
+        // 添加数据
+        async add() {
+          const { data: res } = await axios({
+            method: 'POST',
+            url: 'https://applet-base-api-t.itheima.net/bill',
+            data: this.form
+          })
+
+          // 清空输入框
+          this.form = {
+            creator: creator,
+            name: '',
+            price: ''
+          }
+
+          // 重新渲染数据
+          this.getList()
+        },
+        // 删除数据
+        async del(id) {
+          const { data: res } = await axios({
+            method: 'DELETE',
+            url: 'https://applet-base-api-t.itheima.net/bill/' + id
+          })
+
+          // 重新渲染数据
+          this.getList()
+        },
+        // 创建图表
+        createChart() {
+          this.myChart = echarts.init(document.querySelector('#main'))
+          this.myChart.setOption({
+            title: {
+              text: '消费清单',
+              left: 'center'
+            },
+            tooltip: {
+              trigger: 'item'
+            },
+            legend: {
+              orient: 'vertical',
+              left: 'left'
+            },
+            series: [
+              {
+                name: `${creator}的消费清单`,
+                type: 'pie',
+                radius: '50%',
+                data: [],
+                emphasis: {
+                  itemStyle: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, .5)'
+                  }
+                }
+              }
+            ]
+          })
+        }
+      },
+      computed: {
+        // 消费总计
+        totalPrice() {
+          return this.list.reduce((init, item) => init + item.price, 0)
+        }
+      },
+      mounted() {
+        this.createChart()
+      }
+    })
+  </script>
+</body>
+
+</html>
