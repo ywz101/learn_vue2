@@ -1,9 +1,10 @@
+
 .wrapper {
   display: flex;
   padding: 10px;
 }
 
-/* 左侧列表 */
+/* 左边的列表盒子 */
 .list-box {
   flex: 1;
   padding: 30px;
@@ -27,11 +28,6 @@ tfoot {
   font-weight: 700;
 }
 
-.red {
-  color: red !important;
-}
-
-/* 右侧图表 */
 .echarts-box {
   margin: 0 auto;
   padding: 30px;
@@ -40,7 +36,6 @@ tfoot {
   border: 1px solid #ccc;
 }
 
-/* 媒体查询 */
 @media screen and (max-width: 1000px) {
   .wrapper {
     flex-wrap: wrap;
@@ -49,4 +44,8 @@ tfoot {
   .echarts-box {
     margin-top: 30px;
   }
+}
+
+.red {
+  color: red !important;
 }
